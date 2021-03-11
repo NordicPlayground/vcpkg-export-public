@@ -214,8 +214,6 @@ jobs:
       $WAYLAND_AZURE_SCRIPTS_ROOT/azure-setup.sh
       source $HOME/.waylandrc
 
-      az login
-
       echo "Trying to upload artifact(s) from directory $BUILD_ARTIFACTSTAGINGDIRECTORY"
       ls -la $BUILD_ARTIFACTSTAGINGDIRECTORY
 
@@ -231,8 +229,6 @@ jobs:
         # Exit when any command fails
         set -e
         source $HOME/.waylandrc
-
-        az login
 
         export UNIV_PACKAGE_NAME=vcpkg-export-$VCPKG_TRIPLET
         az artifacts universal publish --verbose --output table --feed $AZURE_UNIVERSAL_PACKAGE_FEED --scope project --name $UNIV_PACKAGE_NAME --version $UNIV_PACKAGE_VERSION --description "Release of vcpkg-export-public" --path $BUILD_ARTIFACTSTAGINGDIRECTORY

@@ -6,6 +6,14 @@ az config set core.only_show_errors=true --only-show-errors
 az config set extension.use_dynamic_install=yes_without_prompt
 az devops configure --defaults organization=$AZURE_DEVOPS_ORGANIZATION_URL project="Wayland"
 
+if [ -z ${AZURE_DEVOPS_EXT_PAT+x}; then
+    echo "AZURE_DEVOPS_EXT_PAT not set, needs to be set"
+    exit -1
+fi
+
+# Strange workaround to login, the documentation says that AZURE_DEVOPS_EXT_PAT should be sufficient for logging in
+echo $AZURE_DEVOPS_EXT_PAT | az devops login --organization $AZURE_DEVOPS_ORGANIZATION_URL
+
 if [ -z ${ARTIFACT_ARCH+x} ]; then
     echo "ARTIFACT_ARCH not set, needs to be set"
     exit -1
