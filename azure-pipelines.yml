@@ -217,7 +217,7 @@ jobs:
       az pipelines runs artifact upload --artifact-name vcpkg-export-$VCPKG_TRIPLET --path $BUILD_ARTIFACTSTAGINGDIRECTORY --run-id $BUILD_BUILDID
     env:
       AZURE_DEVOPS_EXT_PAT: $(WAYLAND_AZ_USER_PAT)
-      WAYLAND_AZURE_SCRIPTS_ROOT: vcpkg-export/scripts
+      WAYLAND_AZURE_SCRIPTS_ROOT: vcpkg-export-public/scripts
       ARTIFACT_ARCH: $(architecture)
       VCPKG_TRIPLET: $(vcpkg_triplet)
     displayName: Publish pipeline artifact
