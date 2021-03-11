@@ -217,7 +217,7 @@ jobs:
       echo "Trying to upload artifact(s) from directory $BUILD_ARTIFACTSTAGINGDIRECTORY"
       ls -la $BUILD_ARTIFACTSTAGINGDIRECTORY
 
-      az pipelines runs artifact upload --artifact-name vcpkg-export-public-$VCPKG_TRIPLET --path $BUILD_ARTIFACTSTAGINGDIRECTORY --run-id $BUILD_BUILDID
+      az pipelines runs artifact upload --verbose --output table --artifact-name vcpkg-export-public-$VCPKG_TRIPLET --path $BUILD_ARTIFACTSTAGINGDIRECTORY --run-id $BUILD_BUILDID
     env:
       AZURE_DEVOPS_EXT_PAT: $(WAYLAND_AZ_USER_PAT)
       WAYLAND_AZURE_SCRIPTS_ROOT: vcpkg-export-public/scripts
@@ -231,7 +231,7 @@ jobs:
         source $HOME/.waylandrc
 
         export UNIV_PACKAGE_NAME=vcpkg-export-$VCPKG_TRIPLET
-        az artifacts universal publish --feed $AZURE_UNIVERSAL_PACKAGE_FEED --scope project --name $UNIV_PACKAGE_NAME --version $UNIV_PACKAGE_VERSION --description "Release of vcpkg-export-public" --path $BUILD_ARTIFACTSTAGINGDIRECTORY
+        az artifacts universal publish --verbose --output table --feed $AZURE_UNIVERSAL_PACKAGE_FEED --scope project --name $UNIV_PACKAGE_NAME --version $UNIV_PACKAGE_VERSION --description "Release of vcpkg-export-public" --path $BUILD_ARTIFACTSTAGINGDIRECTORY
       env:
         AZURE_DEVOPS_EXT_PAT: $(WAYLAND_AZ_USER_PAT)
         AZURE_UNIVERSAL_PACKAGE_FEED: vcpkg-export-public
