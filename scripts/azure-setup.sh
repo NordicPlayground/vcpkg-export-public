@@ -2,6 +2,7 @@
 
 export AZURE_DEVOPS_ORGANIZATION_URL=https://dev.azure.com/NordicSemiconductor/
 
+az extension update --name azure-devops
 az config set core.only_show_errors=true --only-show-errors
 az config set extension.use_dynamic_install=yes_without_prompt
 az devops configure --defaults organization=$AZURE_DEVOPS_ORGANIZATION_URL project="Wayland"
