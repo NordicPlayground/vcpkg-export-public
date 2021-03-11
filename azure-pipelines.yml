@@ -205,7 +205,7 @@ jobs:
   - task: CopyFiles@2
     inputs:
       sourceFolder: "$(VCPKG_ROOT)"
-      contents: "vcpkg-export-*.zip"
+      contents: "vcpkg-export-public-*.zip"
       targetFolder: $(Build.ArtifactStagingDirectory)
   - bash: |
       # Exit when any command fails
@@ -214,7 +214,10 @@ jobs:
       $WAYLAND_AZURE_SCRIPTS_ROOT/azure-setup.sh
       source $HOME/.waylandrc
 
-      az pipelines runs artifact upload --artifact-name vcpkg-export-$VCPKG_TRIPLET --path $BUILD_ARTIFACTSTAGINGDIRECTORY --run-id $BUILD_BUILDID
+      echo "Trying to upload artifact(s) from directory $BUILD_ARTIFACTSTAGINGDIRECTORY"
+      ls -la $BUILD_ARTIFACTSTAGINGDIRECTORY
+
+      az pipelines runs artifact upload --artifact-name vcpkg-export-public-$VCPKG_TRIPLET --path $BUILD_ARTIFACTSTAGINGDIRECTORY --run-id $BUILD_BUILDID
     env:
       AZURE_DEVOPS_EXT_PAT: $(WAYLAND_AZ_USER_PAT)
       WAYLAND_AZURE_SCRIPTS_ROOT: vcpkg-export-public/scripts
